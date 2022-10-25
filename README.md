@@ -65,7 +65,8 @@ In array `$Backups` insert line(s) for backup
 
 [1] - '`Days to live`' means that new backup create folder `NAME_YYYYMMDD_HHMMSS` in `Destination`. After it all folders and files older than `N` days will be deleted in `Destination`. If `DTL` is `""` backup will
 be in `Destination` with `default` or special parameters.
-<!--> Important
+
+<!-- Important
 To change codepage/encoding play with lines:
 ```
 #chcp 866 | out-null
