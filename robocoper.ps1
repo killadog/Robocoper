@@ -1,11 +1,3 @@
-$DefaultParameters = "/MT:8 /E /NDL /NP /R:1 /W:1" # Default robocopy parameters
-$SendEmail = $true
-$SaveLog = $true
-if ($SaveLog) {
-    $LogDir = "D:\Backup\logs"
-}
-$str = "$($PSStyle.Foreground.BrightYellow)*$($PSStyle.Reset)" * 80 # Separation line for better log view
-
 $Backups = @(
     , @("First Backup", "C:\Images", "D:\Backup\First", "0", "")
     , @("Second Backup", "C:\Documents", "D:\Backup\Second", "4", "/MT:8 /E /NDL /NP /R:1 /W:1")
@@ -14,6 +6,14 @@ $Backups = @(
     <# , @("Fifth Backup", "C:\PDFs", "D:\Backup\Fifth", "10", "/MT:8 /E /NDL /NP /R:1 /W:1")
     , @("Sixth Backup", "C:\XXX", "D:\Backup\Sixth", "4", "") #>
 )
+
+$DefaultParameters = "/MT:8 /E /NDL /NP /R:1 /W:1" # Default robocopy parameters
+$SendEmail = $true
+$SaveLog = $true
+if ($SaveLog) {
+    $LogDir = "D:\Backup\logs"
+}
+$str = "$($PSStyle.Foreground.BrightYellow)*$($PSStyle.Reset)" * 80 # Separation line for better log view
 
 $LogTmpFile = (New-TemporaryFile).FullName | Rename-Item -NewName { $_ -replace 'tmp$', 'txt' } –PassThru
 

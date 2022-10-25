@@ -37,11 +37,11 @@ $EmailSmtpPort = 587
 
 `[System.Net.ServicePointManager]::SecurityProtocol = "Tls, TLS11, TLS12"`
 
-- To turn ON e-mail notifications
+- Turn ON e-mail notifications
 
 `$SendEmail = $true`
 
-- To turn ON log saving
+- Turn ON log saving
 
 `$SaveLog = $true`
 
@@ -63,7 +63,7 @@ In array `$Backups` insert line(s) for backup
 
 *Note:* disable backups by `#` at the begin of line or `<# ... #>` for multiline.
 
-[1] - '`Days to live`' means that new backup create folder `NAME_YYYYMMDD_HHMMSS` in `Destination`. After it all folders and files older than `N` days will be deleted in `Destination`. If `DTL` is `""` backup will
+[1] - '`Days to live`' means that new backup create folder `NAME_YYYYMMDD_HHMMSS` in `Destination`. After it all folders and files older than `DTL` days will be deleted in `Destination`. If `DTL` is `""` backup will
 be in `Destination` with `default` or special parameters.
 
 <!-- Important
