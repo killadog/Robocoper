@@ -47,7 +47,7 @@ $TotalTime = Measure-Command {
             $Result = "Success"
             if ($RobocopyDaysToLive -ne 0) {
                 Write-Host "`nDelete files older than $RobocopyDaysToLive days:"
-                $DeleteFromDate = (Get-Date).AddMinutes(-$RobocopyDaysToLive)
+                $DeleteFromDate = (Get-Date).AddDays(-$RobocopyDaysToLive)
                 $WhatToDelete = Get-ChildItem -Path $BackupFolder | Where-Object { ($_.CreationTime -le $DeleteFromDate) -and ($_.LastWriteTime -le $DeleteFromDate) }
                 if ($WhatToDelete.Count -ne 0) {
                     $WhatToDelete | Remove-Item -Recurse -Force -Verbose 
