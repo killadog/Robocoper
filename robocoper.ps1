@@ -1,9 +1,9 @@
 $Backups = @(
     , @("First Backup", "C:\Images", "D:\Backup\First", "0", "")
-    , @("Second Backup", "C:\Documents", "D:\Backup\Second", "4", "/MT:8 /E /NDL /NP /R:1 /W:1")
-    # , @("Third Backup", "C:\Bases", "D:\Backup\Third", "4", "")
-    , @("Fourth Backup", "C:\Music", "D:\Backup\Fourth", "0", "")
-    <# , @("Fifth Backup", "C:\PDFs", "D:\Backup\Fifth", "10", "/MT:8 /E /NDL /NP /R:1 /W:1")
+    , @("Second Backup", "C:\Documents", "D:\Backup\Documents", "4", "/MT:8 /E /NDL /NP /R:1 /W:1")
+    # , @("Third Backup", "C:\Bases", "D:\Backup\Bases", "4", "")
+    , @("Fourth Backup", "C:\Music", "D:\Backup\Music", "0", "")
+    <# , @("Fifth Backup", "C:\PDFs", "D:\Backup\PDFs", "10", "/MT:8 /E /NDL /NP /R:1 /W:1")
     , @("Sixth Backup", "C:\XXX", "D:\Backup\Sixth", "4", "") #>
 )
 
@@ -36,7 +36,7 @@ $TotalTime = Measure-Command {
 
             if ($RobocopyDaysToLive -ne 0) {
                 $BackupFolder = $RobocopyDestination
-                $RobocopyDestination = "$RobocopyDestination\$($RobocopyName.Replace(" ","_"))_$(Get-Date -Format 'ddMMyyyy_HHmmss')" 
+                $RobocopyDestination = "$RobocopyDestination\$($RobocopyName.Replace(" ","_"))_$(Get-Date -Format 'yyyyMMdd_HHmmss')" 
             }
 
             Write-Host "robocopy $RobocopySource $RobocopyDestination $RobocopyParameters"
@@ -118,7 +118,7 @@ if ($SendEmail) {
 }
 
 $str
-Remove-Item -Path $LogTmpFile -Force -Verbose -ErrorAction SilentlyContinue
+Remove-Item -Path $LogTmpFile -Force -Verbose
 
 $str
 $BackupTable

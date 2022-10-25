@@ -4,7 +4,7 @@
 ![Powershell](https://img.shields.io/badge/Powershell-blue.svg)
 
 <p align="center">
-<img src="img/robocoper10.png" alt="Robocoper" width="520" />
+<img src="img/robocoper10.png" alt="Robocoper" width="620" />
 </p>
 
 ### Features
@@ -20,12 +20,12 @@
 - [Powershell](https://docs.microsoft.com/ru-ru/powershell/scripting/install/installing-powershell) 7.2.7
 
 ### Requirements
-
+- [Windows](https://en.wikipedia.org/wiki/Microsoft_Windows)
 - [Robocopy](https://en.wikipedia.org/wiki/Robocopy)
 
 ### Preparation
 
-- Change lines in `email.json` for e-mail settings:
+- Change settings in `email.json`:
 ```
 $EmailTo = 'example@example.com'
 $EmailFrom = 'example@example.com'
@@ -63,7 +63,7 @@ In array `$Backups` insert line(s) for backup
 
 *Note:* disable backups by `#` at the begin of line or `<# ... #>` for multiline.
 
-[1] - '`Days to live`' means that new backup create folder `NAME_YYYYMMDD_HHMMSS` in `Destination`. After it all folders and files older than `DTL` days will be deleted in `Destination`. If `DTL` is `""` backup will
+[1] - '`Days to live`' means that new backup will be in `Destination\NAME_YYYYMMDD_HHMMSS`. After it all folders and files older than `DTL` days will be deleted in `Destination`. If `DTL` is `""` backup will
 be in `Destination` with `default` or special parameters.
 
 <!-- Important
