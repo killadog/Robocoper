@@ -1,0 +1,7 @@
+{
+    "EmailTo": "example@example.com",
+    "EmailFrom": "example@example.com",
+    "EmailPassword": "$eCr3tP@$sW0Rd",
+    "EmailSmtpServer": "smtp.example.com",
+    "EmailSmtpPort": "587"
+}
