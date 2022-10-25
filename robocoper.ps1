@@ -78,10 +78,11 @@ $TotalTime = Measure-Command {
 
 if ($SaveLog) {
     Write-Host "$str`nCompress Log file '$LogTmpFile' to '$LogDir\log_$(Get-Date -UFormat "%Y%m%d-%H%M%S").zip'"
-    Compress-Archive -Path $LogTmpFile -DestinationPath $LogDir\log_$(Get-Date -UFormat "%Y%m%d-%H%M%S").zip
 }
 
 Stop-Transcript
+
+Compress-Archive -Path $LogTmpFile -DestinationPath $LogDir\log_$(Get-Date -UFormat "%Y%m%d-%H%M%S").zip
 
 $BackupTable = $BackupTable |  Format-Table -Property @{n = "Number"; e = { $_.Number }; a = "center" },
 @{n = "Name"; e = { $_.'Name' }; a = "center" },
@@ -117,7 +118,7 @@ if ($SendEmail) {
 }
 
 $str
-Remove-Item -Path $LogTmpFile -Force -Verbose
+Remove-Item -Path $LogTmpFile -Force -Verbose -ErrorAction SilentlyContinue
 
 $str
 $BackupTable
