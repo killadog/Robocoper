@@ -1,5 +1,5 @@
 # Robocoper
-*Simple backup tool based on [Robocopy](https://en.wikipedia.org/wiki/Robocopy)*
+*Simple Windows backup tool based on [Robocopy](https://en.wikipedia.org/wiki/Robocopy)*
 
 ![Powershell](https://img.shields.io/badge/Powershell-blue.svg)
 
@@ -63,8 +63,7 @@ In array `$Backups` insert line(s) for backup
 
 *Note:* disable backups by `#` at the begin of line or `<# ... #>` for multiline.
 
-[1] - '`Days to live`' means that new backup will be in `Destination\NAME_YYYYMMDD_HHMMSS`. After it all folders and files older than `DTL` days will be deleted in `Destination`. If `DTL` is `""` backup will
-be in `Destination` with `default` or special parameters.
+[1] - '`Days to live`' means that new backup will be in `Destination\NAME_YYYYMMDD_HHMMSS`. After it all folders and files older than `DTL` days will be deleted in `Destination`. If `DTL` is `"0"` backup will be in `Destination` with `default` or special parameters.
 
 <!-- Important
 To change codepage/encoding play with lines:
