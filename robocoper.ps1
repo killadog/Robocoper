@@ -1,10 +1,10 @@
 $Backups = @(
-    , @("First Backup", "C:\Images", "D:\Backup\First", "0", "")
-    , @("Second Backup", "C:\Documents", "D:\Backup\Documents", "4", "/MT:8 /E /NDL /NP /R:1 /W:1")
-    # , @("Third Backup", "C:\Bases", "D:\Backup\Bases", "4", "")
-    , @("Fourth Backup", "C:\Music", "D:\Backup\Music", "0", "")
-    <# , @("Fifth Backup", "C:\PDFs", "D:\Backup\PDFs", "10", "/MT:8 /E /NDL /NP /R:1 /W:1")
-    , @("Sixth Backup", "C:\XXX", "D:\Backup\Sixth", "4", "") #>
+    , @('First Backup', 'C:\Images', 'D:\Backup\First', '0', '')
+    , @('Second Backup', 'C:\Documents', 'D:\Backup\Documents', '4', '/MT:8 /E /NDL /NP /R:1 /W:1')
+    # , @('Third Backup', 'C:\Bases', 'D:\Backup\Bases', '4', '')
+    , @('Fourth Backup', 'C:\Music', 'D:\Backup\Music', '0', '')
+    <# , @('Fifth Backup', 'C:\PDFs', 'D:\Backup\PDFs', '10', '/MT:8 /E /NDL /NP /R:1 /W:1')
+    , @('Sixth Backup', 'C:\XXX', 'D:\Backup\Sixth', '4', '') #>
 )
 
 $DefaultParameters = "/MT:8 /E /NDL /NP /R:1 /W:1" # Default robocopy parameters
@@ -28,7 +28,7 @@ $TotalTime = Measure-Command {
         $RobocopyDaysToLive = $_[3]
         $RobocopyParameters = $_[4]
         Write-Host "$str`n[$($Backups.IndexOf($_) + 1)/$($Backups.Count)] Backup: '$RobocopyName'"
-        $StartTime = Get-Date -Format 'yyyy\/MM\/dd HH\:mm\:ss'
+        $StartTime = Get-Date -UFormat "%y/%m/%d-%H:%M:%S"
         $BackupTime = Measure-Command { 
             if ($RobocopyParameters -eq "") {
                 $RobocopyParameters = $DefaultParameters
@@ -36,7 +36,7 @@ $TotalTime = Measure-Command {
 
             if ($RobocopyDaysToLive -ne 0) {
                 $BackupFolder = $RobocopyDestination
-                $RobocopyDestination = "$RobocopyDestination\$($RobocopyName.Replace(" ","_"))_$(Get-Date -Format 'yyyyMMdd_HHmmss')" 
+                $RobocopyDestination = "$RobocopyDestination\$($RobocopyName.Replace(" ","_"))_$(Get-Date -UFormat '%y%m%d_%H%M%S')" 
             }
 
             Write-Host "robocopy $RobocopySource $RobocopyDestination $RobocopyParameters"
@@ -71,18 +71,18 @@ $TotalTime = Measure-Command {
             'Source'      = $RobocopySource
             'Destination' = $RobocopyDestination
             'Start'       = $StartTime
-            'End'         = Get-Date -Format 'yyyy\/MM\/dd HH\:mm\:ss'
+            'End'         = Get-Date -UFormat '%y/%m/%d-%H:%M:%S'
         }
     }
 }
 
 if ($SaveLog) {
-    Write-Host "$str`nCompress Log file '$LogTmpFile' to '$LogDir\log_$(Get-Date -UFormat "%Y%m%d-%H%M%S").zip'"
+    Write-Host "$str`nCompress Log file '$LogTmpFile' to '$LogDir\log_$(Get-Date -UFormat "%y%m%d_%H%M%S").zip'"
 }
 
 Stop-Transcript
 
-Compress-Archive -Path $LogTmpFile -DestinationPath $LogDir\log_$(Get-Date -UFormat "%Y%m%d-%H%M%S").zip
+Compress-Archive -Path $LogTmpFile -DestinationPath $LogDir\log_$(Get-Date -UFormat "%y%m%d_%H%M%S").zip
 
 $BackupTable = $BackupTable |  Format-Table -Property @{n = "Number"; e = { $_.Number }; a = "center" },
 @{n = "Name"; e = { $_.'Name' }; a = "center" },
@@ -98,7 +98,7 @@ if ($SendEmail) {
     $body = Get-Content -Path $LogTmpFile | Out-String 
     $body = "Total backup time: $($TotalTime.ToString('hh\:mm\:ss'))`n$($BackupTable)" + $body
     $email = get-content -Path $PSScriptRoot\email.json -Raw | ConvertFrom-Json
-    $EmailSubject = "robocopy"
+    $EmailSubject = "robocoper"
     $secpasswd = ConvertTo-SecureString $email.EmailPassword -AsPlainText -Force
     $mycreds = New-Object System.Management.Automation.PSCredential ($email.EmailFrom, $secpasswd)
     $encoding = [System.Text.Encoding]::UTF8
